@@ -39,31 +39,23 @@ ticker = st.sidebar.selectbox('Select the company', ticker_list)
 
 # Fetch data from yfinance
 data = yf.download(ticker, start=start_date, end=end_date)
-# Fetch data from user inputs using yfinance library
-data = yf.download(ticker, start=start_date, end=end_date)
 
-# 1. Flatten MultiIndex columns if yfinance returns multi-level headers
+# Flatten MultiIndex columns from yfinance
 if isinstance(data.columns, pd.MultiIndex):
     data.columns = [col[0] for col in data.columns]
 
-# 2. Add Date as an explicit column and reset index safely
-data.insert(0, "Date", data.index, True)
-data.reset_index(drop=True, inplace=True)
+# Reset index to make Date an explicit column
+data = data.reset_index()
 
 st.write('Data from', start_date, 'to', end_date)
 st.write(data)
 
-# 3. Plot the data safely by selecting only numeric columns for y
+# Plotting
 st.header('Data Visualization')
 st.subheader('Plot of the data')
 st.write("**Note:** Select your specific date range on the sidebar, or zoom in on the plot and select your specific column")
 
-numeric_cols = [col for col in data.columns if col != 'Date']
-fig = px.line(data, x='Date', y=numeric_cols, title='Closing price of the stock', width=1000, height=600)
-st.plotly_chart(fig)
 numeric_cols = [c for c in data.columns if c != 'Date']
-
-# Plot lines safely
 fig = px.line(data, x='Date', y=numeric_cols, title='Closing price of the stock', width=1000, height=600)
 st.plotly_chart(fig)
 
@@ -84,7 +76,7 @@ st.header('Decomposition of the data')
 decomposition = seasonal_decompose(data[column], model='additive', period=12)
 st.write(decomposition.plot())
 
-# Make same plot in Plotly
+# Plotting decomposition in Plotly
 st.write("## Plotting the decomposition in Plotly")
 st.plotly_chart(px.line(x=data["Date"], y=decomposition.trend, title='Trend', width=1000, height=400, labels={'x': 'Date', 'y': 'Price'}).update_traces(line_color='Blue'))
 st.plotly_chart(px.line(x=data["Date"], y=decomposition.seasonal, title='Seasonality', width=1000, height=400, labels={'x': 'Date', 'y': 'Price'}).update_traces(line_color='green'))
@@ -135,7 +127,6 @@ elif selected_model == 'Random Forest':
     train_size = int(len(data) * 0.8)
     train_data, test_data = data[:train_size], data[train_size:]
 
-    # Convert dates to numeric ordinal values so Random Forest can process them
     train_X = train_data['Date'].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
     train_y = train_data[column].values
     test_X = test_data['Date'].map(pd.Timestamp.toordinal).values.reshape(-1, 1)
@@ -205,7 +196,7 @@ elif selected_model == 'LSTM':
         fig.update_layout(title='Actual vs Predicted (LSTM)', xaxis_title='Date', yaxis_title='Price', width=1000, height=400)
         st.plotly_chart(fig)
     else:
-        st.error("Sequence length is too large for the selected date range. Reduce sequence length or select a larger date range.")
+        st.error("Sequence length is too large for the selected date range. Reduce sequence length.")
 
 elif selected_model == 'Prophet':
     st.header('Facebook Prophet')
