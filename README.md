@@ -1,9 +1,8 @@
-```markdown
 # 📈 Stock Market Forecasting App
 
 An interactive, end-to-end web application built with **Streamlit** and **Python** for analyzing historical financial data and forecasting future stock prices using traditional statistical methods and machine learning models.
 
-🚀 **[Try the Live Web App on Streamlit Cloud!](https://stock-market-app-kzr5em4uieqvhzwbrmjwr5.streamlit.app/)**
+🚀 **[Try the Live Web App on Streamlit Cloud!](https://www.google.com/search?q=https://stock-market-app-kzr5em4uieqvhzwbrmjwr5.streamlit.app/)**
 
 ---
 
@@ -11,9 +10,11 @@ An interactive, end-to-end web application built with **Streamlit** and **Python
 
 * **Real-Time Data Retrieval:** Automatically fetches live historical market data from Yahoo Finance (`yfinance`).
 * **Interactive Data Visualization:** Dynamic stock price plots built with Plotly Express and Graph Objects.
-* **Time-Series Analysis:** 
-  * Augmented Dickey-Fuller (ADF) test for data stationarity verification.
-  * Seasonal decomposition (Trend, Seasonality, and Residuals) in interactive Plotly views.
+* **Time-Series Analysis:**
+* Augmented Dickey-Fuller (ADF) test for data stationarity verification.
+* Seasonal decomposition (Trend, Seasonality, and Residuals) in interactive Plotly views.
+
+
 * **Multiple Predictive Models:** Train and evaluate multiple forecasting techniques on the fly.
 * **Custom Parameter Tuning:** Adjust model hyperparameters (e.g., ARIMA orders, LSTM sequence lengths, forecast horizons) directly from the sidebar UI.
 
@@ -48,7 +49,7 @@ To run this app locally on your machine, follow these steps:
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/WakeelDev/Stock-Market-App.git](https://github.com/WakeelDev/Stock-Market-App.git)
+git clone https://github.com/WakeelDev/Stock-Market-App.git
 cd Stock-Market-App
 
 ```
@@ -94,7 +95,3 @@ streamlit run app03.py
 ## 📄 License
 
 This project is open-source and licensed under the [Apache-2.0 License](https://www.google.com/search?q=LICENSE).
-
-```
-
-```
