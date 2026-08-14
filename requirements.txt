@@ -5,13 +5,10 @@ numpy
 pandas
 plotly
 prophet
-scikit_learn
+scikit-learn
 seaborn
 statsmodels
 streamlit
 xgboost
 yfinance
-streamlit
 tensorflow
-numpy
-protobuf==3.20.3  
