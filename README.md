@@ -2,7 +2,7 @@
 
 An interactive, end-to-end web application built with **Streamlit** and **Python** for analyzing historical financial data and forecasting future stock prices using traditional statistical methods and machine learning models.
 
-🚀 **[Try the Live Web App on Streamlit Cloud!](https://www.google.com/search?q=https://stock-market-app-kzr5em4uieqvhzwbrmjwr5.streamlit.app/)**
+🚀 **[Try the Live Web App on Streamlit Cloud!](https://stock-market-app-kzr5em4uieqvhzwbrmjwr5.streamlit.app/)**
 
 ---
 
