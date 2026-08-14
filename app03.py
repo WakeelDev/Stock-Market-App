@@ -39,23 +39,28 @@ ticker = st.sidebar.selectbox('Select the company', ticker_list)
 
 # Fetch data from yfinance
 data = yf.download(ticker, start=start_date, end=end_date)
+# Fetch data from user inputs using yfinance library
+data = yf.download(ticker, start=start_date, end=end_date)
 
-# FIX 1: Flatten MultiIndex columns if present
+# 1. Flatten MultiIndex columns if yfinance returns multi-level headers
 if isinstance(data.columns, pd.MultiIndex):
     data.columns = [col[0] for col in data.columns]
 
-# FIX 2: Properly reset index to get a clean 'Date' column
-data = data.reset_index()
+# 2. Add Date as an explicit column and reset index safely
+data.insert(0, "Date", data.index, True)
+data.reset_index(drop=True, inplace=True)
 
 st.write('Data from', start_date, 'to', end_date)
 st.write(data)
 
-# Plot the data
+# 3. Plot the data safely by selecting only numeric columns for y
 st.header('Data Visualization')
 st.subheader('Plot of the data')
 st.write("**Note:** Select your specific date range on the sidebar, or zoom in on the plot and select your specific column")
 
-# Select numeric columns for plotting (excluding Date)
+numeric_cols = [col for col in data.columns if col != 'Date']
+fig = px.line(data, x='Date', y=numeric_cols, title='Closing price of the stock', width=1000, height=600)
+st.plotly_chart(fig)
 numeric_cols = [c for c in data.columns if c != 'Date']
 
 # Plot lines safely
